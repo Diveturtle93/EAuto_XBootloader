@@ -23,7 +23,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "XModem.h"
+#include "BasicUart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -103,6 +104,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  uartTransmitString("Please send a new binary file with Xmodem protocol to update the firmware.\n");
+    xmodem_receive();
+    /* We only exit the xmodem protocol, if there are any errors.
+     * In that case, notify the user and start over. */
+    uartTransmitString("\n\rFailed... Please try again.\n");
   }
   /* USER CODE END 3 */
 }
