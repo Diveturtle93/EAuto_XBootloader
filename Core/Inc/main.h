@@ -59,6 +59,12 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 
 /* USER CODE BEGIN Private defines */
+// Definiere Bootloader Versionsnummern
+//----------------------------------------------------------------------
+#define MAJOR					0												// Bootloader Major Number
+#define MINOR					1												// Bootloader Minor Number
+//----------------------------------------------------------------------
+
 // Typedefine Boolean definieren
 //----------------------------------------------------------------------
 typedef enum
