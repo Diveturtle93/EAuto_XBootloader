@@ -121,11 +121,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  // xmodem dauerhaft Abfragen und auf Upload warten
+	  // Abbruch durch Benutzer mit "a" oder "A"
+	  // Abbruch durch Bootloader wenn Timeout erreicht und Application vorhanden
 	  uartTransmitString("Please send a new binary file with Xmodem protocol to update the firmware.\n");
 	  xmodem_receive();
-    /* We only exit the xmodem protocol, if there are any errors.
-     * In that case, notify the user and start over. */
-    uartTransmitString("\nFailed... Please try again.\n");
+
+	  // Wenn Xmodem_receive fehlerhaft, dann Fehlermeldung ausgeben und erneut probieren
+	  uartTransmitString("\nFailed... Please try again.\n");
   }
   /* USER CODE END 3 */
 }
