@@ -104,6 +104,10 @@ int main(void)
   uartTransmitString("\nMikrocontroller:\t\tSTM32F767ZIT\n");
   uartTransmitString("================================================\n");
 
+  HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(BLUE_LED_GPIO_Port, BLUE_LED_Pin, GPIO_PIN_SET);
+
   // Abfrage ob Application vorhanden
   // Abfrage nur wenn aus Bootloader gebootet wird. Sollte ueber die Option-Bytes die
   // Bootadresse geaendert werden, kann dieser Schritt uebersprungen werden.

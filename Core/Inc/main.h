@@ -31,7 +31,10 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#ifdef DEBUG
+	#define EAuto
+	#warning "Das Symbol EAuto muss deaktiviert werden, wenn eine PCB programmiert werden soll"
+#endif
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -46,7 +49,15 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+#if (BMS == 255) && (MOTOR == 255)
+#warning "Es ist keine PCB definiert. Build ist fehlerhaft und fuehrt ggf. zu Beschaedigungen an der PCB."
+#elif (BMS != 255) && (MOTOR != 255)
+#error "Es sind zwei PCBs definiert. Falsche Pinbelegung fuehrt zu Beschaedigungen an der PCB."
+#elif (BMS != 255) && (MOTOR == 255)
+#warning "PCB Batteriemanagement-System ausgewaehlt"
+#elif (BMS == 255) && (MOTOR != 255)
+#warning "PCB Motorsteuergeraet ausgewaehlt"
+#endif
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
