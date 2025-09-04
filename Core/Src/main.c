@@ -23,9 +23,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "XModem.h"
-#include "flash.h"
 #include "BasicUart.h"
+#include "flash.h"
+#include "XModem.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,6 +105,8 @@ int main(void)
   uartTransmitString("================================================\n");
 
   // Abfrage ob Application vorhanden
+  // Abfrage nur wenn aus Bootloader gebootet wird. Sollte ueber die Option-Bytes die
+  // Bootadresse geaendert werden, kann dieser Schritt uebersprungen werden.
   if (X_OK == app_validation(FLASH_APP_VALID_ADDRESS))
   {
 	  // Sprung zu Application, wenn vorhanden
@@ -125,6 +127,7 @@ int main(void)
 	  // Abbruch durch Benutzer mit "a" oder "A"
 	  // Abbruch durch Bootloader wenn Timeout erreicht und Application vorhanden
 	  uartTransmitString("Please send a new binary file with Xmodem protocol to update the firmware.\n");
+	  uartTransmitString("Update can be aborted with \"a\" or \"A\".\n");
 	  xmodem_receive();
 
 	  // Wenn Xmodem_receive fehlerhaft, dann Fehlermeldung ausgeben und erneut probieren
