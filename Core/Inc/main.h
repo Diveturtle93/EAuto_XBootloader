@@ -59,7 +59,35 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 
 /* USER CODE BEGIN Private defines */
+// Definiere Bootloader Versionsnummern
+//----------------------------------------------------------------------
+#define MAJOR					0												// Bootloader Major Number
+#define MINOR					1												// Bootloader Minor Number
+//----------------------------------------------------------------------
 
+// Definiere Flash Startadresse
+//----------------------------------------------------------------------
+#define FLASH_APP_START_ADDRESS			(0x8008000)
+//----------------------------------------------------------------------
+
+// Definiere Flash Validationadresse
+//----------------------------------------------------------------------
+#define FLASH_APP_VALID_ADDRESS			(0x803FFF8)
+//----------------------------------------------------------------------
+
+// Definiere Flash Endadresse
+//----------------------------------------------------------------------
+#define FLASH_APP_END_ADDRESS			0x8040000-1
+//----------------------------------------------------------------------
+
+// Typedefine Boolean definieren
+//----------------------------------------------------------------------
+typedef enum
+{
+	false,
+	true,
+} bool;
+//----------------------------------------------------------------------
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

@@ -23,7 +23,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "XModem.h"
+#include "flash.h"
+#include "BasicUart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,7 +95,23 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  uartTransmitString("\n================================================\n");
+  uartTransmitString("EAuto Bootloader\n");
+  uartTransmitString("Version ");
+  uartTransmitNumber(MAJOR, 10);
+  uartTransmitChar('.');
+  uartTransmitNumber(MINOR, 10);
+  uartTransmitString("\nMikrocontroller:\t\tSTM32F767ZIT\n");
+  uartTransmitString("================================================\n");
 
+  // Abfrage ob Application vorhanden
+  if (X_OK == app_validation(FLASH_APP_VALID_ADDRESS))
+  {
+	  // Sprung zu Application, wenn vorhanden
+	  uartTransmitString("Application vorhanden.\n");
+	  uartTransmitString("Springe zu Benutzer Application...\n");
+	  flash_jump_to_app();
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,6 +121,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  // xmodem dauerhaft Abfragen und auf Upload warten
+	  // Abbruch durch Benutzer mit "a" oder "A"
+	  // Abbruch durch Bootloader wenn Timeout erreicht und Application vorhanden
+	  uartTransmitString("Please send a new binary file with Xmodem protocol to update the firmware.\n");
+	  xmodem_receive();
+
+	  // Wenn Xmodem_receive fehlerhaft, dann Fehlermeldung ausgeben und erneut probieren
+	  uartTransmitString("\nFailed... Please try again.\n");
   }
   /* USER CODE END 3 */
 }
