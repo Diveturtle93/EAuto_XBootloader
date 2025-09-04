@@ -53,12 +53,32 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+#ifdef EAuto
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define RED_LED_Pin GPIO_PIN_2
+#define RED_LED_GPIO_Port GPIOB
+#define GREEN_LED_Pin GPIO_PIN_14
+#define GREEN_LED_GPIO_Port GPIOB
+#define BLUE_LED_Pin GPIO_PIN_7
+#define BLUE_LED_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+#endif
+
+// Definiere Pinout fuer Motorsteuergeraet 1.0
+//----------------------------------------------------------------------
+#if (MOTOR == 1) || (BMS == 1)
+	#define RED_LED_Pin GPIO_PIN_2
+	#define RED_LED_GPIO_Port GPIOB
+	#define GREEN_LED_Pin GPIO_PIN_14
+	#define GREEN_LED_GPIO_Port GPIOB
+	#define BLUE_LED_Pin GPIO_PIN_7
+	#define BLUE_LED_GPIO_Port GPIOB
+#endif
+//----------------------------------------------------------------------
+
 // Definiere Bootloader Versionsnummern
 //----------------------------------------------------------------------
 #define MAJOR					0												// Bootloader Major Number
