@@ -53,7 +53,7 @@
 void SystemClock_Config(void);
 static void MPU_Config(void);
 /* USER CODE BEGIN PFP */
-
+void welcome_screen (void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -95,15 +95,11 @@ int main(void)
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  uartTransmitString("\n================================================\n");
-  uartTransmitString("EAuto Bootloader\n");
-  uartTransmitString("Version ");
-  uartTransmitNumber(MAJOR, 10);
-  uartTransmitChar('.');
-  uartTransmitNumber(MINOR, 10);
-  uartTransmitString("\nMikrocontroller:\t\tSTM32F767ZIT\n");
-  uartTransmitString("================================================\n");
 
+  // Willkommensbildschirm
+  welcome_screen();
+
+  // LEDs definieren
   HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(BLUE_LED_GPIO_Port, BLUE_LED_Pin, GPIO_PIN_SET);
@@ -130,12 +126,12 @@ int main(void)
 	  // xmodem dauerhaft Abfragen und auf Upload warten
 	  // Abbruch durch Benutzer mit "a" oder "A"
 	  // Abbruch durch Bootloader wenn Timeout erreicht und Application vorhanden
-	  uartTransmitString("Please send a new binary file with Xmodem protocol to update the firmware.\n");
-	  uartTransmitString("Update can be aborted with \"a\" or \"A\".\n");
+	  uartTransmitString("Bitte sende eine neue Binardatei mit Xmodemprotokol um ein Update der Firmware durchzufuehren.\n");
+	  uartTransmitString("Update kann mit \"a\" or \"A\" abgebrochen werden.\n");
 	  xmodem_receive();
 
 	  // Wenn Xmodem_receive fehlerhaft, dann Fehlermeldung ausgeben und erneut probieren
-	  uartTransmitString("\nFailed... Please try again.\n");
+	  uartTransmitString("\nFehler... bitte erneut versuchen.\n");
   }
   /* USER CODE END 3 */
 }
@@ -182,7 +178,34 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void welcome_screen (void)
+{
+	uartTransmitString("\n\033[2J\033[H\033[0;32;40m");
+	uartTransmitString("####################################################################################################\n");
+	uartTransmitString("####################################################################################################\n");
+	uartTransmitString("####################################################################################################\n");
+	uartTransmitString("####################################################################################################\n");
+	uartTransmitString("####     ###    ##  ###  ##      ##      ##  ##  ##     ###      ##  ######      ###    ####    ####\n");
+	uartTransmitString("####  ##  ###  ###  ###  ##  ########  ####  ##  ##  ##  ####  ####  ######  ######  ##  ##  ##  ###\n");
+	uartTransmitString("####  ##  ###  ###  ###  ##  ########  ####  ##  ##  ##  ####  ####  ######  ######  ##  ######  ###\n");
+	uartTransmitString("####  ##  ###  ###  ###  ##    ######  ####  ##  ##     #####  ####  ######    #####     ####   ####\n");
+	uartTransmitString("####  ##  ###  ####  #  ###  ########  ####  ##  ##  #  #####  ####  ######  ##########  ######  ###\n");
+	uartTransmitString("####  ##  ###  ####  #  ###  ########  ####  ##  ##  ##  ####  ####  ######  ##########  ##  ##  ###\n");
+	uartTransmitString("####     ###    ####   ####      ####  #####    ###  ##  ####  ####      ##      ###    ####    ####\n");
+	uartTransmitString("####################################################################################################\n");
+	uartTransmitString("####################################################################################################\n");
+	uartTransmitString("####################################################################################################\n");
+	uartTransmitString("####################################################################################################\n");
+	uartTransmitString("====================================================================================================\n");
+	uartTransmitString("----------------------------------------> EAuto Bootloader <----------------------------------------\n");
+	uartTransmitString("\tVersion ");
+	uartTransmitNumber(MAJOR, 10);
+	uartTransmitChar('.');
+	uartTransmitNumber(MINOR, 10);
+	uartTransmitString("\n\tMikrocontroller:\t\tSTM32F767ZIT\n");
+	uartTransmitString("====================================================================================================\n");
+	uartTransmitString("\n\033[0;37m");
+}
 /* USER CODE END 4 */
 
  /* MPU Configuration */

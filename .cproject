@@ -183,7 +183,7 @@
 	<storageModule moduleId="refreshScope"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
-			<target name="Motor1.0" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="Motor Rev 1.0" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments>-j4 MOTOR=1</buildArguments>
 				<buildTarget>all</buildTarget>
@@ -199,7 +199,7 @@
 				<useDefaultCommand>true</useDefaultCommand>
 				<runAllBuilders>true</runAllBuilders>
 			</target>
-			<target name="BMS1.0" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+			<target name="BMS Rev 1.0" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments>-j4 BMS=1</buildArguments>
 				<buildTarget>all</buildTarget>
