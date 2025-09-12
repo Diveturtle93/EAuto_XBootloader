@@ -31,7 +31,10 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#ifdef DEBUG
+	#define EAuto
+	#warning "Das Symbol EAuto muss deaktiviert werden, wenn eine PCB programmiert werden soll"
+#endif
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -46,19 +49,47 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+#if (BMS == 255) && (MOTOR == 255)
+#warning "Es ist keine PCB definiert. Build ist fehlerhaft und fuehrt ggf. zu Beschaedigungen an der PCB."
+#elif (BMS != 255) && (MOTOR != 255)
+#error "Es sind zwei PCBs definiert. Falsche Pinbelegung fuehrt zu Beschaedigungen an der PCB."
+#elif (BMS != 255) && (MOTOR == 255)
+#warning "PCB Batteriemanagement-System ausgewaehlt"
+#elif (BMS == 255) && (MOTOR != 255)
+#warning "PCB Motorsteuergeraet ausgewaehlt"
+#endif
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+#ifdef EAuto
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define RED_LED_Pin GPIO_PIN_2
+#define RED_LED_GPIO_Port GPIOB
+#define GREEN_LED_Pin GPIO_PIN_14
+#define GREEN_LED_GPIO_Port GPIOB
+#define BLUE_LED_Pin GPIO_PIN_7
+#define BLUE_LED_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+#endif
+
+// Definiere Pinout fuer Motorsteuergeraet 1.0
+//----------------------------------------------------------------------
+#if (MOTOR == 1) || (BMS == 1)
+	#define RED_LED_Pin GPIO_PIN_2
+	#define RED_LED_GPIO_Port GPIOB
+	#define GREEN_LED_Pin GPIO_PIN_14
+	#define GREEN_LED_GPIO_Port GPIOB
+	#define BLUE_LED_Pin GPIO_PIN_7
+	#define BLUE_LED_GPIO_Port GPIOB
+#endif
+//----------------------------------------------------------------------
+
 // Definiere Bootloader Versionsnummern
 //----------------------------------------------------------------------
 #define MAJOR					0												// Bootloader Major Number
