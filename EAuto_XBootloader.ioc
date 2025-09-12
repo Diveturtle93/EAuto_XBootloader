@@ -2,8 +2,12 @@
 CAD.formats=
 CAD.pinconfig=
 CAD.provider=
-CORTEX_M7.IPParameters=default_mode_Activation
-CORTEX_M7.default_mode_Activation=1
+CORTEX_M7.CPU_DCache=Disabled
+CORTEX_M7.CPU_ICache=Disabled
+CORTEX_M7.Enable_Spec=__NULL
+CORTEX_M7.IPParameters=default_mode_Activation,Enable_Spec,MPU_Control,CPU_ICache,CPU_DCache
+CORTEX_M7.MPU_Control=__NULL
+CORTEX_M7.default_mode_Activation=0
 File.Version=6
 KeepUserPlacement=false
 Mcu.CPN=STM32F767ZIT6
