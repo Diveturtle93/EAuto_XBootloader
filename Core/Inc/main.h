@@ -92,8 +92,10 @@ void Error_Handler(void);
 
 // Definiere Bootloader Versionsnummern
 //----------------------------------------------------------------------
-#define MAJOR					0												// Bootloader Major Number
-#define MINOR					1												// Bootloader Minor Number
+#define MAJOR					0											// Bootloader Major Number
+#define MINOR					1											// Bootloader Minor Number
+#define PATCH					0											// Bootloader Patch Number
+#define DEV						0											// Bootloader Dev Number
 //----------------------------------------------------------------------
 
 // Definiere Flash Startadresse

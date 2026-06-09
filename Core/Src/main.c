@@ -122,7 +122,7 @@ int main(void)
 	  // xmodem dauerhaft Abfragen und auf Upload warten
 	  // Abbruch durch Benutzer mit "a" oder "A"
 	  // Abbruch durch Bootloader wenn Timeout erreicht und Application vorhanden
-	  uartTransmitString("Bitte sende eine neue Binardatei mit Xmodemprotokol um ein Update der Firmware durchzufuehren.\n");
+	  uartTransmitString("Bitte sende eine neue Binaerdatei mit Xmodemprotokoll um ein Update der Firmware durchzufuehren.\n");
 	  uartTransmitString("Update kann mit \"a\" or \"A\" abgebrochen werden.\n");
 	  xmodem_receive();
 
@@ -198,6 +198,10 @@ void welcome_screen (void)
 	uartTransmitNumber(MAJOR, 10);
 	uartTransmitChar('.');
 	uartTransmitNumber(MINOR, 10);
+	uartTransmitChar('.');
+	uartTransmitNumber(PATCH, 10);
+	uartTransmitChar('.');
+	uartTransmitNumber(DEV, 10);
 	uartTransmitString("\n\tMikrocontroller:\t\tSTM32F767ZIT\n");
 	uartTransmitString("====================================================================================================\n");
 	uartTransmitString("\n\033[0;37m");
