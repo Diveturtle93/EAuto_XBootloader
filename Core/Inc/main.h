@@ -32,7 +32,7 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #ifdef DEBUG
-	#define EAuto
+	#define EAUTO
 	#warning "Das Symbol EAuto muss deaktiviert werden, wenn eine PCB programmiert werden soll"
 #endif
 /* USER CODE END Includes */
@@ -50,13 +50,13 @@ extern "C" {
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
 #if (BMS == 255) && (MOTOR == 255)
-#warning "Es ist keine PCB definiert. Build ist fehlerhaft und fuehrt ggf. zu Beschaedigungen an der PCB."
+	#warning "Es ist keine PCB definiert. Build ist fehlerhaft und fuehrt ggf. zu Beschaedigungen an der PCB."
 #elif (BMS != 255) && (MOTOR != 255)
-#error "Es sind zwei PCBs definiert. Falsche Pinbelegung fuehrt zu Beschaedigungen an der PCB."
+	#error "Es sind zwei PCBs definiert. Falsche Pinbelegung fuehrt zu Beschaedigungen an der PCB."
 #elif (BMS != 255) && (MOTOR == 255)
-#warning "PCB Batteriemanagement-System ausgewaehlt"
+	#warning "PCB Batteriemanagement-System ausgewaehlt"
 #elif (BMS == 255) && (MOTOR != 255)
-#warning "PCB Motorsteuergeraet ausgewaehlt"
+	#warning "PCB Motorsteuergeraet ausgewaehlt"
 #endif
 /* USER CODE END EM */
 
@@ -64,16 +64,16 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-#ifdef EAuto
+#ifdef EAUTO
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define RED_LED_Pin GPIO_PIN_2
-#define RED_LED_GPIO_Port GPIOB
-#define GREEN_LED_Pin GPIO_PIN_14
-#define GREEN_LED_GPIO_Port GPIOB
-#define BLUE_LED_Pin GPIO_PIN_7
-#define BLUE_LED_GPIO_Port GPIOB
+#define RED_LED_Pin								GPIO_PIN_2
+#define RED_LED_GPIO_Port						GPIOB
+#define GREEN_LED_Pin							GPIO_PIN_14
+#define GREEN_LED_GPIO_Port 					GPIOB
+#define BLUE_LED_Pin							GPIO_PIN_7
+#define BLUE_LED_GPIO_Port						GPIOB
 
 /* USER CODE BEGIN Private defines */
 #endif
@@ -81,45 +81,28 @@ void Error_Handler(void);
 // Definiere Pinout fuer Motorsteuergeraet 1.0
 //----------------------------------------------------------------------
 #if (MOTOR == 1) || (BMS == 1)
-	#define RED_LED_Pin GPIO_PIN_2
-	#define RED_LED_GPIO_Port GPIOB
-	#define GREEN_LED_Pin GPIO_PIN_14
-	#define GREEN_LED_GPIO_Port GPIOB
-	#define BLUE_LED_Pin GPIO_PIN_7
-	#define BLUE_LED_GPIO_Port GPIOB
+	#define RED_LED_Pin							GPIO_PIN_2
+	#define RED_LED_GPIO_Port					GPIOB
+	#define GREEN_LED_Pin						GPIO_PIN_14
+	#define GREEN_LED_GPIO_Port					GPIOB
+	#define BLUE_LED_Pin						GPIO_PIN_7
+	#define BLUE_LED_GPIO_Port					GPIOB
 #endif
-//----------------------------------------------------------------------
-
-// Definiere Bootloader Versionsnummern
-//----------------------------------------------------------------------
-#define MAJOR					0											// Bootloader Major Number
-#define MINOR					1											// Bootloader Minor Number
-#define PATCH					0											// Bootloader Patch Number
-#define DEV						0											// Bootloader Dev Number
 //----------------------------------------------------------------------
 
 // Definiere Flash Startadresse
 //----------------------------------------------------------------------
-#define FLASH_APP_START_ADDRESS			(0x8008000)
+#define FLASH_APP_START_ADDRESS					(0x8008000)
 //----------------------------------------------------------------------
 
 // Definiere Flash Validationadresse
 //----------------------------------------------------------------------
-#define FLASH_APP_VALID_ADDRESS			(0x803FFF8)
+#define FLASH_APP_VALID_ADDRESS					(0x803FFF8)
 //----------------------------------------------------------------------
 
 // Definiere Flash Endadresse
 //----------------------------------------------------------------------
-#define FLASH_APP_END_ADDRESS			0x8040000-1
-//----------------------------------------------------------------------
-
-// Typedefine Boolean definieren
-//----------------------------------------------------------------------
-typedef enum
-{
-	false,
-	true,
-} bool;
+#define FLASH_APP_END_ADDRESS					(0x8040000-1)
 //----------------------------------------------------------------------
 /* USER CODE END Private defines */
 

@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "BasicUart.h"
 #include "flash.h"
+#include "version.h"
 #include "XModem.h"
 /* USER CODE END Includes */
 
@@ -92,43 +93,43 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  // Willkommensbildschirm
-  welcome_screen();
+	// Willkommensbildschirm
+	welcome_screen();
 
-  // LEDs definieren
-  HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(BLUE_LED_GPIO_Port, BLUE_LED_Pin, GPIO_PIN_SET);
+	// LEDs definieren
+	HAL_GPIO_WritePin(RED_LED_GPIO_Port, RED_LED_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GREEN_LED_GPIO_Port, GREEN_LED_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(BLUE_LED_GPIO_Port, BLUE_LED_Pin, GPIO_PIN_SET);
 
-  // Abfrage ob Application vorhanden
-  // Abfrage nur wenn aus Bootloader gebootet wird. Sollte ueber die Option-Bytes die
-  // Bootadresse geaendert werden, kann dieser Schritt uebersprungen werden.
-  if (X_OK == app_validation(FLASH_APP_VALID_ADDRESS))
-  {
-	  // Sprung zu Application, wenn vorhanden
-	  uartTransmitString("Application vorhanden.\n");
-	  uartTransmitString("Springe zu Benutzer Application...\n");
-	  flash_jump_to_app();
-  }
+	// Abfrage ob Application vorhanden
+	// Abfrage nur wenn aus Bootloader gebootet wird. Sollte ueber die Option-Bytes die
+	// Bootadresse geaendert werden, kann dieser Schritt uebersprungen werden.
+	if (X_OK == app_validation(FLASH_APP_VALID_ADDRESS))
+	{
+		// Sprung zu Application, wenn vorhanden
+		uartTransmitString("Application vorhanden.\n");
+		uartTransmitString("Springe zu Benutzer Application...\n");
+		flash_jump_to_app();
+	}
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
+	while (1)
+	{
+		/* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-	  // xmodem dauerhaft Abfragen und auf Upload warten
-	  // Abbruch durch Benutzer mit "a" oder "A"
-	  // Abbruch durch Bootloader wenn Timeout erreicht und Application vorhanden
-	  uartTransmitString("Bitte sende eine neue Binaerdatei mit Xmodemprotokoll um ein Update der Firmware durchzufuehren.\n");
-	  uartTransmitString("Update kann mit \"a\" or \"A\" abgebrochen werden.\n");
-	  xmodem_receive();
+		/* USER CODE BEGIN 3 */
+		// xmodem dauerhaft Abfragen und auf Upload warten
+		// Abbruch durch Benutzer mit "a" oder "A"
+		// Abbruch durch Bootloader wenn Timeout erreicht und Application vorhanden
+		uartTransmitString("Bitte sende eine neue Binaerdatei mit Xmodemprotokoll um ein Update der Firmware durchzufuehren.\n");
+		uartTransmitString("Update kann mit \"a\" or \"A\" abgebrochen werden.\n");
+		xmodem_receive();
 
-	  // Wenn Xmodem_receive fehlerhaft, dann Fehlermeldung ausgeben und erneut probieren
-	  uartTransmitString("\nFehler... bitte erneut versuchen.\n");
-  }
+		// Wenn Xmodem_receive fehlerhaft, dann Fehlermeldung ausgeben und erneut probieren
+		uartTransmitString("\nFehler... bitte erneut versuchen.\n");
+	}
   /* USER CODE END 3 */
 }
 
@@ -174,6 +175,9 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+// Willkommensbildschirm
+//----------------------------------------------------------------------
 void welcome_screen (void)
 {
 	uartTransmitString("\n\033[2J\033[H\033[38;5;208m");
@@ -195,17 +199,19 @@ void welcome_screen (void)
 	uartTransmitString("====================================================================================================\n");
 	uartTransmitString("----------------------------------------> EAuto Bootloader <----------------------------------------\n");
 	uartTransmitString("\tVersion ");
-	uartTransmitNumber(MAJOR, 10);
+	uartTransmitNumber(VERSION_MAJOR, 10);
 	uartTransmitChar('.');
-	uartTransmitNumber(MINOR, 10);
+	uartTransmitNumber(VERSION_MINOR, 10);
 	uartTransmitChar('.');
-	uartTransmitNumber(PATCH, 10);
+	uartTransmitNumber(VERSION_PATCH, 10);
 	uartTransmitChar('.');
-	uartTransmitNumber(DEV, 10);
-	uartTransmitString("\n\tMikrocontroller:\t\tSTM32F767ZIT\n");
+	uartTransmitNumber(VERSION_DEV, 10);
+	uartTransmitChar('\n');
 	uartTransmitString("====================================================================================================\n");
 	uartTransmitString("\n\033[0;37m");
 }
+//----------------------------------------------------------------------
+
 /* USER CODE END 4 */
 
 /**
@@ -215,11 +221,11 @@ void welcome_screen (void)
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
+	// User can add his own implementation to report the HAL error return state
+	__disable_irq();
+	while (1)
+	{
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 #ifdef USE_FULL_ASSERT
@@ -233,8 +239,8 @@ void Error_Handler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+	// User can add his own implementation to report the file name and line number,
+	// ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
